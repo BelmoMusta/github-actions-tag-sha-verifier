@@ -1,0 +1,24 @@
+name: 'GitHub Actions Tag SHA Verifier'
+branding:
+  icon: activity
+  color: orange
+description:
+  'Verifies the if the SHA of the referenced tags have changed across the time.'
+author: 'Mustapha Belmokhtar'
+
+inputs:
+  actions-list:
+    description: 'File describing the actions to verify'
+    required: false
+
+  continue-on-failure:
+    description: Fail the execution flow if the validation of the inputs fails
+    default: 'false'
+
+# Define your outputs here.
+outputs:
+  verification-result:
+    description: 'The verification result of the SHAs of the tags '
+runs:
+  using: node24
+  main: dist/index.js

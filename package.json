@@ -1,0 +1,100 @@
+{
+  "name": "github-actions-tag-sha-verifier",
+  "description": "",
+  "version": "0.0.1",
+  "author": "Mustapha Belmokhtar",
+  "private": true,
+  "homepage": "https://github.com/BelmoMusta/github-actions-tag-sha-verifier",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BelmoMusta/github-actions-tag-sha-verifier.git"
+  },
+  "bugs": {
+    "url": "https://github.com/BelmoMusta/github-actions-tag-sha-verifier/issues"
+  },
+  "keywords": [
+    "actions",
+    "node",
+    "setup"
+  ],
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "scripts": {
+    "bundle": "npm run format:write && npm run package",
+    "ci-test": "npx jest",
+    "coverage": "npx make-coverage-badge --output-path ./badges/coverage.svg",
+    "format:write": "npx prettier --write \"**/*.ts\"",
+    "format:check": "npx prettier --check \"**/*.ts\"",
+    "lint": "npx eslint . -c ./eslint.config.mjs",
+    "local-action": "npx local-action . src/main.ts .env",
+    "package": "npx ncc build src/index.ts -o dist --source-map --license licenses.txt",
+    "postpackage": "cp actions-lock.json dist",
+    "package:watch": "npm run package -- --watch",
+    "test": "npx jest",
+    "all": "npm run format:write && npm run lint && npm run test && npm run coverage && npm run package"
+  },
+  "license": "MIT",
+  "jest": {
+    "preset": "ts-jest",
+    "verbose": true,
+    "clearMocks": true,
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "index.ts"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "ts"
+    ],
+    "testMatch": [
+      "**/*.test.ts"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/dist/"
+    ],
+    "transform": {
+      "^.+\\.ts$": "ts-jest"
+    },
+    "coverageReporters": [
+      "json-summary",
+      "text",
+      "lcov"
+    ],
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "./src/**"
+    ]
+  },
+  "dependencies": {
+    "@actions/core": "^1.11.1",
+    "@eslint/compat": "^1.2.9",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-import": "^2.31.0",
+    "octokit": "^5.0.5",
+    "yaml": "^2.7.0"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.3.1",
+    "@eslint/js": "^9.28.0",
+    "@github/local-action": "^2.2.0",
+    "@jest/globals": "^29.7.0",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.13.10",
+    "@typescript-eslint/eslint-plugin": "^8.26.0",
+    "@typescript-eslint/parser": "^8.26.0",
+    "@vercel/ncc": "^0.38.3",
+    "eslint": "^9.17.0",
+    "eslint-plugin-jest": "^28.11.0",
+    "eslint-plugin-jsonc": "^2.19.1",
+    "eslint-plugin-prettier": "^5.2.3",
+    "globals": "^16.2.0",
+    "jest": "^29.7.0",
+    "make-coverage-badge": "^1.2.0",
+    "prettier": "^3.5.3",
+    "prettier-eslint": "^16.3.0",
+    "ts-jest": "^29.2.6",
+    "typescript": "^5.8.2"
+  }
+}

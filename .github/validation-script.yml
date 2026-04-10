@@ -1,0 +1,11 @@
+input-b:
+  type: string
+  value: 'foo\.bar.*' # must be ecma scripts regex
+milliseconds:
+  type: number
+time-to-live:
+  type: number
+  less-than: 1000
+  greater-than: 0
+enabled:
+  type: boolean
