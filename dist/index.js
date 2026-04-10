@@ -16049,17 +16049,17 @@ const octokit_1 = __nccwpck_require__(839);
 __nccwpck_require__(797);
 const lockedActionInformation = __nccwpck_require__(797);
 async function getCurrentCommitForActionTagOrBranch(action, tagOrBranch) {
-    let owner = "";
-    let repo = "";
-    if (action.includes("/")) {
-        owner = action.split("/")[0];
-        repo = action.split("/")[1];
+    let owner = '';
+    let repo = '';
+    if (action.includes('/')) {
+        owner = action.split('/')[0];
+        repo = action.split('/')[1];
     }
-    const octokit = new octokit_1.Octokit({ userAgent: "github-actions" });
+    const octokit = new octokit_1.Octokit({ userAgent: 'github-actions' });
     let octokitResponse = await octokit.rest.git.getRef({
-        ref: "tags/" + tagOrBranch,
+        ref: 'tags/' + tagOrBranch,
         repo: repo,
-        baseUrl: "https://api.github.com",
+        baseUrl: 'https://api.github.com',
         owner: owner
     });
     return octokitResponse.data.object.sha;
@@ -16067,14 +16067,16 @@ async function getCurrentCommitForActionTagOrBranch(action, tagOrBranch) {
 for (const action of lockedActionInformation) {
     if (action.tags) {
         for (let tag of action.tags) {
-            getCurrentCommitForActionTagOrBranch(action.name, tag.name).then(currentCommit => {
+            getCurrentCommitForActionTagOrBranch(action.name, tag.name)
+                .then((currentCommit) => {
                 if (tag.commit === currentCommit) {
                     console.log(`'${action.name}' is good at tag '${tag.name}', having the commit '${currentCommit}'`);
                 }
                 else {
                     console.log(`'${action.name}' is bad at tag '${tag.name}', expected commit: '${tag.commit}', actual commit: '${currentCommit}'`);
                 }
-            }).catch(error => {
+            })
+                .catch((error) => {
                 console.error(error);
             });
         }
