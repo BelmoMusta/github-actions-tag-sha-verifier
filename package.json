@@ -70,10 +70,10 @@
   "dependencies": {
     "@actions/core": "^1.11.1",
     "@eslint/compat": "^1.2.9",
-    "eslint-config-prettier": "^10.1.5",
+    "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-import": "^2.31.0",
     "octokit": "^5.0.5",
-    "yaml": "^2.7.0"
+    "yaml": "^2.8.3"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
