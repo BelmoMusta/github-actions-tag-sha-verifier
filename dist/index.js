@@ -37052,16 +37052,15 @@ async function summary(actionRefReports) {
         { data: "name", header: true },
         { data: "ref", header: true },
         { data: "expectedSHA", header: true },
-        { data: "actualSHA", header: true },
-        { data: "Matched", header: true }
+        { data: "actualSHA", header: true }
     ];
     const table = [headers];
     for (const reportElement of actionRefReports) {
+        const icone = reportElement.match ? '✅' : '❌';
         const row = [reportElement.name,
-            reportElement.ref,
-            reportElement.expectedSHA,
-            reportElement.actualSHA,
-            `${reportElement.match}`];
+            `${icone}  ${reportElement.ref}`,
+            `<code>${reportElement.expectedSHA}</code>`,
+            `<code>${reportElement.actualSHA}</code>`];
         table.push(row);
     }
     await summary$1
