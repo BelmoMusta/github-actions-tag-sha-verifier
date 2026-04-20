@@ -1,24 +1,25 @@
-name: 'GitHub Actions Tag SHA Verifier'
+name: 'GitHub Actions Refs SHA Verifier'
 branding:
   icon: activity
   color: orange
 description:
-  'Verifies the if the SHA of the referenced tags have changed across the time.'
+  'Verifies if the SHA of the referenced refs have changed across the time.'
 author: 'Mustapha Belmokhtar'
 
 inputs:
-  actions-list:
-    description: 'File describing the actions to verify'
+  lock-file-location:
+    description: 'A JSON file describing the actions to verify, for the file format, please refer to the readme file'
+    required: false
+  write-to-job-summary:
+    description: 'Flag to enable writing the check report to the Github summary'
+    default: 'true'
     required: false
 
-  continue-on-failure:
-    description: Fail the execution flow if the validation of the inputs fails
-    default: 'false'
-
-# Define your outputs here.
 outputs:
-  verification-result:
-    description: 'The verification result of the SHAs of the tags '
+  json-repost:
+    description: 'A JSON string representing the state of check of the actions refs'
+  markdown-repost:
+    description: 'A Markdown string representing the state of check of the actions refs'
 runs:
   using: node24
   main: dist/index.js

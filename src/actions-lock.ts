@@ -1,6 +1,6 @@
 import fs from 'fs-extra'
 import * as path from 'path'
-import {LockedActionInformation} from './lockedActionInformation.js'
+import {LockedActionInformation} from './types.js'
 
 export function getLockedActions(lockFileLocation: string) {
     let filePath

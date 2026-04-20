@@ -1,8 +1,8 @@
 import {SummaryTableRow} from "@actions/core/lib/summary.js";
 import * as core from "@actions/core";
-import {ActionRefReport} from "./lockedActionInformation.js";
+import {ActionRefReport, Summary, SummaryOptions} from "./types.js";
 
-export async function summary(actionRefReports: ActionRefReport []) {
+export async function summary(actionRefReports: ActionRefReport [], summaryOptions: SummaryOptions): Promise<Summary> {
     const headers = [
         {data: "name", header: true},
         {data: "ref", header: true},
@@ -19,8 +19,15 @@ export async function summary(actionRefReports: ActionRefReport []) {
             `<code>${reportElement.actualSHA}</code>`]
         table.push(row)
     }
-    await core.summary
+    const summary = core.summary
         .addHeading("Summary")
         .addTable(table)
-        .write()
+    if (summaryOptions.writeToJobSummary) {
+        ;(await summary
+            .write())
+            .stringify()
+    }
+    const json = JSON.stringify(actionRefReports)
+    const markdown = summary.stringify()
+    return {json, markdown}
 }

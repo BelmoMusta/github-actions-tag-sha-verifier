@@ -1,7 +1,7 @@
 import {getCurrentCommitForActionTagOrBranch} from "./get-current-action-commit-sha.js";
-import {ActionRefReport, LockedActionInformation} from "./lockedActionInformation.js";
+import {ActionRefReport, CheckConfig, LockedActionInformation} from "./types.js";
 
-export async function check(lockedActions: LockedActionInformation[]) {
+export async function check(lockedActions: LockedActionInformation[], checkConfig: CheckConfig) {
     const report = [] as ActionRefReport[]
     for (const action of lockedActions) {
         if (action.refs) {
