@@ -37057,10 +37057,12 @@ async function summary(actionRefReports) {
     const table = [headers];
     for (const reportElement of actionRefReports) {
         const icone = reportElement.match ? '✅' : '❌';
-        const row = [reportElement.name,
-            `${icone}  ${reportElement.ref}`,
+        const row = [
+            `<a href="https://github.com/${reportElement.name}">${reportElement.name}</a>`,
+            `<a href="https://github.com/${reportElement.name}/tree/${reportElement.ref}">${icone} ${reportElement.ref}</a>`,
             `<code>${reportElement.expectedSHA}</code>`,
-            `<code>${reportElement.actualSHA}</code>`];
+            `<code>${reportElement.actualSHA}</code>`
+        ];
         table.push(row);
     }
     await summary$1
