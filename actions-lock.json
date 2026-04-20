@@ -2,7 +2,7 @@
   {
     "name": "actions/setup-java",
     "versioningType": "patch-major",
-    "tags": [
+    "refs": [
       {
         "name": "v5",
         "commit": "be666c2fcd27ec809703dec50e508c2fdc7f6654",
@@ -19,7 +19,7 @@
   {
     "name": "hashicorp/vault-action",
     "versioningType": "patch-major",
-    "tags": [
+    "refs": [
       {
         "name": "v3",
         "commit": "4c06c5ccf5c0761b6029f56cfb1dcf5565918a3b",
