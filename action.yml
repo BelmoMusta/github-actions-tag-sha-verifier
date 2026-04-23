@@ -16,9 +16,9 @@ inputs:
     required: false
 
 outputs:
-  json-repost:
+  json-report:
     description: 'A JSON string representing the state of check of the actions refs'
-  markdown-repost:
+  markdown-report:
     description: 'A Markdown string representing the state of check of the actions refs'
 runs:
   using: node24
