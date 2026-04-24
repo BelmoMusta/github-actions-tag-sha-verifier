@@ -59,4 +59,7 @@ jobs:
 
       - name: Print Output
         id: output
-        run: echo '${{ steps.test-action.outputs.json-report }}'
+        #language=bash
+        run: echo "$REPORT"
+        env:
+          REPORT: ${{ steps.test-action.outputs.json-report }}
