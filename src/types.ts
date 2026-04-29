@@ -1,37 +1,45 @@
 export type LockedActionInformation = {
-    name: string
-    versioningType: string
-    refs:
-        | {
+  name: string
+  versioningType: string
+  refs:
+    | {
+        type: 'branch' | 'tag'
         name: string
         commit: string
         aliases: string[] | undefined
-    }[]
-        | undefined
+      }[]
+    | undefined
 }
 
 export type ActionRefReport = {
-    name: string
-    ref: string
-    expectedSHA: string
-    actualSHA: string
-    match: boolean
+  name: string
+  ref: string
+  expectedSHA: string
+  actualSHA: string
+  match: boolean
 }
 
 export type Summary = {
-    json: string
-    markdown: string
+  json: string
+  markdown: string
 }
 
 export type CheckConfig = {
-    githubToken: string
+  githubToken: string
+}
+
+export type ReferenceConfig = {
+  type: 'branch' | 'tag'
+  action: string
+  reference: string
+  githubToken: string | undefined
 }
 
 export type SummaryOptions = {
-    writeToJobSummary: boolean
+  writeToJobSummary: boolean
 }
 
 export type Inputs = {
-    lockFileLocation: string,
-    writeToJobSummary: boolean
+  lockFileLocation: string
+  writeToJobSummary: boolean
 }

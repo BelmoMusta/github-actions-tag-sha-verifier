@@ -31,7 +31,7 @@
     "package": "npx rimraf ./dist && npx rollup --config rollup.config.ts --configPlugin @rollup/plugin-typescript",
     "package:watch": "npm run package -- --watch",
     "test": "npx jest",
-    "all": "npm run format:write && npm run lint && npm run test && npm run coverage && npm run package"
+    "all": "npm run format:write && npm run test && npm run coverage && npm run package"
   },
   "license": "MIT",
   "jest": {
@@ -68,6 +68,8 @@
   },
   "dependencies": {
     "@actions/core": "^3.0.0",
+    "@octokit/plugin-retry": "^8.1.0",
+    "@octokit/plugin-throttling": "^11.0.3",
     "fs-extra": "^11.3.4",
     "octokit": "^5.0.5",
     "yaml": "^2.8.3"

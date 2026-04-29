@@ -8883,19 +8883,52 @@ function onSecondaryRateLimit(retryAfter, options, octokit) {
 }
 /* v8 ignore next no need to test internals of the throttle plugin -- @preserve */
 
-async function getCurrentCommitForActionTagOrBranch(action, tagOrBranch) {
+function throttlingWith2Retries(options) {
+    const octokit = new Octokit();
+    const ThrottledOctokit = Octokit.plugin(throttling);
+    return new ThrottledOctokit({
+        ...options,
+        throttle: {
+            onRateLimit: (retryAfter, options) => {
+                octokit.log.warn(`Request quota exhausted for request ${options.method} ${options.url}`);
+                // Retry twice after hitting a rate limit error, then give up
+                if (options.request.retryCount <= 2) {
+                    console.log(`Retrying after ${retryAfter} seconds!`);
+                    return true;
+                }
+            },
+            onSecondaryRateLimit: (retryAfter, options, octokit) => {
+                // does not retry, only logs a warning
+                octokit.log.warn(`Secondary quota detected for request ${options.method} ${options.url}`);
+            }
+        }
+    });
+}
+
+const baseUrl = 'https://api.github.com';
+async function getCurrentCommitForActionReference(referenceConfig) {
     let owner = '';
     let repo = '';
-    if (action.includes('/')) {
-        owner = action.split('/')[0];
-        repo = action.split('/')[1];
+    if (referenceConfig.action.includes('/')) {
+        owner = referenceConfig.action.split('/')[0];
+        repo = referenceConfig.action.split('/')[1];
     }
-    const octokit = new Octokit({ userAgent: 'github-actions' });
-    let octokitResponse = await octokit.rest.git.getRef({
-        ref: 'tags/' + tagOrBranch,
-        repo: repo,
-        baseUrl: 'https://api.github.com',
-        owner: owner
+    const octokit = throttlingWith2Retries({
+        userAgent: 'github-actions',
+        auth: referenceConfig.githubToken
+    });
+    let ref = '';
+    if (referenceConfig.type === 'tag') {
+        ref = 'tags/';
+    }
+    else {
+        ref = 'heads/';
+    }
+    const octokitResponse = await octokit.rest.git.getRef({
+        ref: ref + referenceConfig.reference,
+        repo,
+        baseUrl,
+        owner
     });
     return octokitResponse.data.object.sha;
 }
@@ -8909,8 +8942,12 @@ async function check(lockedActions, checkConfig) {
                 refReport.name = action.name;
                 refReport.ref = ref.name;
                 refReport.expectedSHA = ref.commit;
-                const currentCommit = await getCurrentCommitForActionTagOrBranch(action.name, ref.name);
-                refReport.actualSHA = currentCommit;
+                refReport.actualSHA = await getCurrentCommitForActionReference({
+                    type: ref.type,
+                    action: action.name,
+                    reference: ref.name,
+                    githubToken: checkConfig.githubToken
+                });
                 refReport.match = refReport.actualSHA === refReport.expectedSHA;
                 report.push(refReport);
             }
@@ -37218,10 +37255,10 @@ function setOutput(name, value) {
 
 async function summary(actionRefReports, summaryOptions) {
     const headers = [
-        { data: "name", header: true },
-        { data: "ref", header: true },
-        { data: "expectedSHA", header: true },
-        { data: "actualSHA", header: true }
+        { data: 'name', header: true },
+        { data: 'ref', header: true },
+        { data: 'expectedSHA', header: true },
+        { data: 'actualSHA', header: true }
     ];
     const table = [headers];
     for (const reportElement of actionRefReports) {
@@ -37234,13 +37271,9 @@ async function summary(actionRefReports, summaryOptions) {
         ];
         table.push(row);
     }
-    const summary = summary$1
-        .addHeading("Summary")
-        .addTable(table);
+    const summary = summary$1.addHeading('Summary').addTable(table);
     if (summaryOptions.writeToJobSummary) {
-        (await summary
-            .write())
-            .stringify();
+        (await summary.write()).stringify();
     }
     const json = JSON.stringify(actionRefReports);
     const markdown = summary.stringify();
@@ -37263,6 +37296,6 @@ function setOutputs(result) {
 
 const { lockFileLocation, writeToJobSummary } = getInputs();
 const lockedActions = getLockedActions(lockFileLocation);
-const actionRefReports = await check(lockedActions);
+const actionRefReports = await check(lockedActions, { githubToken: '' });
 const result = await summary(actionRefReports, { writeToJobSummary });
 setOutputs(result);
