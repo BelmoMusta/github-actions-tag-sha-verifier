@@ -57,7 +57,7 @@ jobs:
         id: test-action
         uses: ./
         with:
-          github-token: ${{ secrets.GH_PAT }}
+          github-token: xyz${{ secrets.GH_PAT }}
 
       - name: Print Output
         id: output
