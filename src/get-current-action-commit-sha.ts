@@ -1,5 +1,5 @@
 import { ReferenceConfig } from './types.js'
-import throttlingWith2Retries from './throttle-with-2-retries.js'
+import {Octokit} from "octokit";
 
 const baseUrl = 'https://api.github.com'
 
@@ -13,7 +13,7 @@ export async function getCurrentCommitForActionReference(
     repo = referenceConfig.action.split('/')[1]
   }
 
-  const octokit = throttlingWith2Retries({
+  const octokit = new Octokit({
     userAgent: 'github-actions',
     auth: referenceConfig.githubToken
   })

@@ -1,4 +1,3 @@
-import { SummaryTableRow } from '@actions/core/lib/summary.js'
 import * as core from '@actions/core'
 import { ActionRefReport, Summary, SummaryOptions } from './types.js'
 
@@ -12,13 +11,14 @@ export async function summary(
     { data: 'expectedSHA', header: true },
     { data: 'actualSHA', header: true }
   ]
-  const table = [headers] as SummaryTableRow[]
+  const table = []
+  table.push(headers)
 
   for (const reportElement of actionRefReports) {
-    const icone = reportElement.match ? '✅' : '❌'
+    const icon = reportElement.match ? '✅' : '❌'
     const row = [
       `<a href="https://github.com/${reportElement.name}">${reportElement.name}</a>`,
-      `<a href="https://github.com/${reportElement.name}/tree/${reportElement.ref}">${icone} ${reportElement.ref}</a>`,
+      `<a href="https://github.com/${reportElement.name}/tree/${reportElement.ref}">${icon} ${reportElement.ref}</a>`,
       `<code>${reportElement.expectedSHA}</code>`,
       `<code>${reportElement.actualSHA}</code>`
     ]

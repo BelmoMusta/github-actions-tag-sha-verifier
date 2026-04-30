@@ -68,8 +68,6 @@
   },
   "dependencies": {
     "@actions/core": "^3.0.0",
-    "@octokit/plugin-retry": "^8.1.0",
-    "@octokit/plugin-throttling": "^11.0.3",
     "fs-extra": "^11.3.4",
     "octokit": "^5.0.5",
     "yaml": "^2.8.3"

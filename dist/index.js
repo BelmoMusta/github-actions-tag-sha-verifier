@@ -8883,26 +8883,6 @@ function onSecondaryRateLimit(retryAfter, options, octokit) {
 }
 /* v8 ignore next no need to test internals of the throttle plugin -- @preserve */
 
-function throttlingWith2Retries(options) {
-    const octokit = new Octokit();
-    const ThrottledOctokit = Octokit.plugin(throttling);
-    return new ThrottledOctokit({
-        ...options,
-        throttle: {
-            onRateLimit: (retryAfter, options) => {
-                octokit.log.warn(`Request quota exhausted for request ${options.method} ${options.url}`);
-                if (options.request.retryCount <= 2) {
-                    console.log(`Retrying after ${retryAfter} seconds!`);
-                    return true;
-                }
-            },
-            onSecondaryRateLimit: (retryAfter, options, octokit) => {
-                octokit.log.warn(`Secondary quota detected for request ${options.method} ${options.url}`);
-            }
-        }
-    });
-}
-
 const baseUrl = 'https://api.github.com';
 async function getCurrentCommitForActionReference(referenceConfig) {
     let owner = '';
@@ -8911,7 +8891,7 @@ async function getCurrentCommitForActionReference(referenceConfig) {
         owner = referenceConfig.action.split('/')[0];
         repo = referenceConfig.action.split('/')[1];
     }
-    const octokit = throttlingWith2Retries({
+    const octokit = new Octokit({
         userAgent: 'github-actions',
         auth: referenceConfig.githubToken
     });
@@ -37258,12 +37238,13 @@ async function summary(actionRefReports, summaryOptions) {
         { data: 'expectedSHA', header: true },
         { data: 'actualSHA', header: true }
     ];
-    const table = [headers];
+    const table = [];
+    table.push(headers);
     for (const reportElement of actionRefReports) {
-        const icone = reportElement.match ? '✅' : '❌';
+        const icon = reportElement.match ? '✅' : '❌';
         const row = [
             `<a href="https://github.com/${reportElement.name}">${reportElement.name}</a>`,
-            `<a href="https://github.com/${reportElement.name}/tree/${reportElement.ref}">${icone} ${reportElement.ref}</a>`,
+            `<a href="https://github.com/${reportElement.name}/tree/${reportElement.ref}">${icon} ${reportElement.ref}</a>`,
             `<code>${reportElement.expectedSHA}</code>`,
             `<code>${reportElement.actualSHA}</code>`
         ];
