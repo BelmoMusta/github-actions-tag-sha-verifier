@@ -56,10 +56,8 @@ jobs:
       - name: Test Local Action
         id: test-action
         uses: ./
-        env:
-          GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
         with:
-          github-token: ${{ env.GITHUB_TOKEN }}
+          github-token: ${{ secrets.GH_PAT }}
 
       - name: Print Output
         id: output
