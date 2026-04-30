@@ -14,6 +14,9 @@ inputs:
     description: 'Flag to enable writing the check report to the Github summary'
     default: 'true'
     required: false
+  github-token:
+    description: 'Github Authentication Token'
+    required: false
 
 outputs:
   json-report:

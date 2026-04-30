@@ -8891,14 +8891,12 @@ function throttlingWith2Retries(options) {
         throttle: {
             onRateLimit: (retryAfter, options) => {
                 octokit.log.warn(`Request quota exhausted for request ${options.method} ${options.url}`);
-                // Retry twice after hitting a rate limit error, then give up
                 if (options.request.retryCount <= 2) {
                     console.log(`Retrying after ${retryAfter} seconds!`);
                     return true;
                 }
             },
             onSecondaryRateLimit: (retryAfter, options, octokit) => {
-                // does not retry, only logs a warning
                 octokit.log.warn(`Secondary quota detected for request ${options.method} ${options.url}`);
             }
         }
@@ -37283,9 +37281,11 @@ async function summary(actionRefReports, summaryOptions) {
 function getInputs() {
     const lockFileLocation = getInput('lock-file-location');
     const writeToJobSummary = getBooleanInput('write-to-job-summary');
+    const githubToken = getInput('github-token');
     return {
         lockFileLocation,
-        writeToJobSummary
+        writeToJobSummary,
+        githubToken
     };
 }
 
@@ -37294,8 +37294,8 @@ function setOutputs(result) {
     setOutput('markdown-report', result.markdown);
 }
 
-const { lockFileLocation, writeToJobSummary } = getInputs();
+const { lockFileLocation, writeToJobSummary, githubToken } = getInputs();
 const lockedActions = getLockedActions(lockFileLocation);
-const actionRefReports = await check(lockedActions, { githubToken: '' });
+const actionRefReports = await check(lockedActions, { githubToken });
 const result = await summary(actionRefReports, { writeToJobSummary });
 setOutputs(result);

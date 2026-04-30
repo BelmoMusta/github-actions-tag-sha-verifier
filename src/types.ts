@@ -42,4 +42,5 @@ export type SummaryOptions = {
 export type Inputs = {
   lockFileLocation: string
   writeToJobSummary: boolean
+  githubToken: string
 }
