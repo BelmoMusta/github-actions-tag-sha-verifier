@@ -9,3 +9,20 @@ export const getBooleanInput = jest.fn<typeof core.getBooleanInput>()
 export const setOutput = jest.fn<typeof core.setOutput>()
 export const setFailed = jest.fn<typeof core.setFailed>()
 export const warning = jest.fn<typeof core.warning>()
+export const summary = {
+  addTable: jest.fn(() => {}),
+  addHeading: jest.fn(() => {
+    return {
+      addTable: jest.fn(() => {
+        return {
+          write: jest.fn(() => {
+            return {
+              stringify: jest.fn(() => 'MARKDOWN')
+            }
+          }),
+          stringify: jest.fn(() => 'MARKDOWN')
+        }
+      })
+    }
+  })
+}

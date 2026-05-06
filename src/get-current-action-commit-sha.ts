@@ -1,5 +1,5 @@
 import { ReferenceConfig } from './types.js'
-import {Octokit} from "octokit";
+import { Octokit } from 'octokit'
 
 const baseUrl = 'https://api.github.com'
 

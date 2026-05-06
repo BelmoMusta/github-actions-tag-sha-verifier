@@ -1,3 +1,3 @@
-import {jest} from '@jest/globals'
+import { jest } from '@jest/globals'
 import fs from 'fs-extra'
 export const readFileSync = jest.fn<typeof fs.readFileSync>()

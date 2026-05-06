@@ -8,7 +8,9 @@ author: 'Mustapha Belmokhtar'
 
 inputs:
   lock-file-location:
-    description: 'A JSON file describing the actions to verify, for the file format, please refer to the readme file'
+    description:
+      'A JSON file describing the actions to verify, for the file format, please
+      refer to the readme file'
     required: false
   write-to-job-summary:
     description: 'Flag to enable writing the check report to the Github summary'
@@ -20,9 +22,11 @@ inputs:
 
 outputs:
   json-report:
-    description: 'A JSON string representing the state of check of the actions refs'
+    description:
+      'A JSON string representing the state of check of the actions refs'
   markdown-report:
-    description: 'A Markdown string representing the state of check of the actions refs'
+    description:
+      'A Markdown string representing the state of check of the actions refs'
 runs:
   using: node24
   main: dist/index.js

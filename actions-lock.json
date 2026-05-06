@@ -7,9 +7,7 @@
         "type": "tag",
         "name": "v5",
         "commit": "be666c2fcd27ec809703dec50e508c2fdc7f6654",
-        "aliases": [
-          "v5.2.0"
-        ]
+        "aliases": ["v5.2.0"]
       },
       {
         "type": "tag",
@@ -31,9 +29,7 @@
         "type": "tag",
         "name": "v3",
         "commit": "4c06c5ccf5c0761b6029f56cfb1dcf5565918a3b",
-        "aliases": [
-          "v3.4.0"
-        ]
+        "aliases": ["v3.4.0"]
       },
       {
         "type": "tag",

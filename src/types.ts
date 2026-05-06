@@ -1,14 +1,12 @@
 export type LockedActionInformation = {
   name: string
   versioningType: string
-  refs:
-    | {
-        type: 'branch' | 'tag'
-        name: string
-        commit: string
-        aliases: string[] | undefined
-      }[]
-    | undefined
+  refs: {
+    type: 'branch' | 'tag'
+    name: string
+    commit: string
+    aliases: string[] | undefined
+  }[]
 }
 
 export type ActionRefReport = {
