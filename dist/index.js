@@ -2459,6 +2459,10 @@ function requireUtils$1 () {
 	  const EOF = finalEOL ? EOL : '';
 	  const str = JSON.stringify(obj, replacer, spaces);
 
+	  if (str === undefined) {
+	    throw new TypeError(`Converting ${typeof obj} value to JSON is not supported`)
+	  }
+
 	  return str.replace(/\n/g, EOL) + EOF
 	}
 
@@ -37280,3 +37284,4 @@ const lockedActions = getLockedActions(lockFileLocation);
 const actionRefReports = await check(lockedActions, { githubToken });
 const result = await summary(actionRefReports, { writeToJobSummary });
 setOutputs(result);
+//# sourceMappingURL=index.js.map
