@@ -47,3 +47,7 @@ jobs:
         with:
           github-token: ${{ secrets.GH_PAT }}
 ```
+
+## Structure of the lock file
+
+The [lock-file-schema.json](./schemas/lock-file-schema.json) file holds the schema of the lock file

@@ -1,0 +1,52 @@
+{
+  "$ref": "#/definitions/LockedActionInformationItem",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "LockedActionInformationItem": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "refs": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "commit": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "type": {
+                "enum": [
+                  "branch",
+                  "tag"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "type",
+              "name",
+              "commit"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "name",
+        "refs"
+      ],
+      "type": "object"
+    },
+    "LockedActionInformation": {
+      "items": {
+        "$ref": "#/definitions/LockedActionInformationItem"
+      },
+      "type": "array"
+    }
+  }
+}
