@@ -1,0 +1,74 @@
+{
+  "name": "github-actions-tag-sha-verifier",
+  "description": "Verifies the if the SHA of the referenced tags have changed across the time.",
+  "version": "0.0.1",
+  "author": "Mustapha Belmokhtar",
+  "private": true,
+  "type": "module",
+  "homepage": "https://github.com/BelmoMusta/github-actions-tag-sha-verifier",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BelmoMusta/github-actions-tag-sha-verifier.git"
+  },
+  "bugs": {
+    "url": "https://github.com/BelmoMusta/github-actions-tag-sha-verifier/issues"
+  },
+  "keywords": [
+    "actions",
+    "node",
+    "setup"
+  ],
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "scripts": {
+    "bundle": "npm run format:write && npm run package",
+    "ci-test": "NODE_OPTIONS=--experimental-vm-modules NODE_NO_WARNINGS=1 npx jest",
+    "coverage": "npx make-coverage-badge --output-path ./badges/coverage.svg",
+    "format:write": "npx prettier --write \"**/*.ts\"",
+    "format:check": "npx prettier --check \"**/*.ts\"",
+    "lint": "npx eslint .",
+    "local-action": "npx @github/local-action . src/main.ts .env",
+    "package": "npx rimraf ./dist && npx rollup --config rollup.config.ts --configPlugin @rollup/plugin-typescript",
+    "package:watch": "npm run package -- --watch",
+    "test": "NODE_OPTIONS=--experimental-vm-modules NODE_NO_WARNINGS=1 npx jest",
+    "all": "npm run format:write && npm run lint && npm run test && npm run coverage && npm run package"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@actions/core": "^3.0.1",
+    "fs-extra": "^11.3.5",
+    "globals": "^17.6.0",
+    "octokit": "^5.0.5"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.3.5",
+    "@eslint/js": "^10.0.1",
+    "@github/local-action": "^7.0.1",
+    "@jest/globals": "^30.4.1",
+    "@octokit/fixtures": "^23.1.2",
+    "@octokit/rest": "^22.0.1",
+    "@rollup/plugin-commonjs": "^29.0.2",
+    "@rollup/plugin-node-resolve": "^16.0.3",
+    "@rollup/plugin-typescript": "^12.3.0",
+    "@types/fs-extra": "^11.0.4",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^25.6.2",
+    "@typescript-eslint/eslint-plugin": "^8.59.2",
+    "eslint": "^10.3.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-jest": "^29.15.2",
+    "eslint-plugin-prettier": "^5.5.5",
+    "fs-extra": "^11.3.5",
+    "jest": "^30.4.2",
+    "make-coverage-badge": "^1.2.0",
+    "prettier": "^3.8.3",
+    "rollup": "^4.60.3",
+    "ts-jest": "^29.4.9",
+    "ts-jest-resolver": "^2.0.1",
+    "typescript": "^5.9.3"
+  },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "*"
+  }
+}
