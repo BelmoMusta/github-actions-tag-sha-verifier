@@ -1,6 +1,6 @@
 name: 'GitHub Actions Refs SHA Verifier'
 branding:
-  icon: activity
+  icon: check
   color: orange
 description:
   'Verifies if the SHA of the referenced refs have changed across the time.'

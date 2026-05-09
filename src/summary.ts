@@ -16,9 +16,10 @@ export async function summary(
 
   for (const reportElement of actionRefReports) {
     const icon = reportElement.match ? '✅' : '❌'
+    const refs = `<a href="https://github.com/${reportElement.name}/tree/${reportElement.ref}">${icon} ${reportElement.ref}</a>`
     const row = [
       `<a href="https://github.com/${reportElement.name}">${reportElement.name}</a>`,
-      `<a href="https://github.com/${reportElement.name}/tree/${reportElement.ref}">${icon} ${reportElement.ref}</a>`,
+      refs,
       `<code>${reportElement.expectedSHA}</code>`,
       `<code>${reportElement.actualSHA}</code>`
     ]

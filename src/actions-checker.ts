@@ -11,7 +11,7 @@ export async function check(
 ) {
   const report = [] as ActionRefReport[]
   for (const action of lockedActions) {
-    for (let ref of action.refs) {
+    for (const ref of action.refs) {
       const refReport = {} as ActionRefReport
       refReport.name = action.name
       refReport.ref = ref.name

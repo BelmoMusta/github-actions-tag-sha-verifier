@@ -1,11 +1,9 @@
 export type LockedActionInformation = {
   name: string
-  versioningType: string
   refs: {
     type: 'branch' | 'tag'
     name: string
     commit: string
-    aliases: string[] | undefined
   }[]
 }
 
