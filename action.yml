@@ -1,0 +1,32 @@
+name: 'GitHub Actions Refs SHA Verifier'
+branding:
+  icon: check
+  color: orange
+description:
+  'Verifies if the SHA of the referenced refs have changed across the time.'
+author: 'Mustapha Belmokhtar'
+
+inputs:
+  lock-file-location:
+    description:
+      'A JSON file describing the actions to verify, for the file format, please
+      refer to the readme file'
+    required: false
+  write-to-job-summary:
+    description: 'Flag to enable writing the check report to the Github summary'
+    default: 'true'
+    required: false
+  github-token:
+    description: 'Github Authentication Token'
+    required: false
+
+outputs:
+  json-report:
+    description:
+      'A JSON string representing the state of check of the actions refs'
+  markdown-report:
+    description:
+      'A Markdown string representing the state of check of the actions refs'
+runs:
+  using: node24
+  main: dist/index.js
