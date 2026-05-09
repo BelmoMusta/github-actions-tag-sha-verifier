@@ -37,7 +37,11 @@ export default [
         ...globals.node,
         ...globals.jest,
         Atomics: 'readonly',
-        SharedArrayBuffer: 'readonly'
+        SharedArrayBuffer: 'readonly',
+        "afterAll": "readonly",
+        "beforeAll": "readonly",
+        "describe": "readonly",
+        "test": "readonly"
       },
 
       parser: tsParser,

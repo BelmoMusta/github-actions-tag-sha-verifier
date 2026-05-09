@@ -3,13 +3,13 @@
 ## Goal and motivation
 
 The objective of this action is to track the integrity of the references, (tags
-or branches), used to call some known gitHub actions.
+or branches), used to call some known GitHub Actions.
 
 The motivation comes from the fact that the mentioned references will eventually
 change without any prior notice. Then, the end users may be using an unwanted
 version of the action that will not suite the goal of their workflows.
 
-The majority of the gitHub actions use major tags that sum up all the minor,
+The majority of the GitHub Actions use major tags that sum up all the minor,
 path and hotfix versions. This allows the actions maintainers to point the major
 tag to the commit SHA of the latest update.
 
