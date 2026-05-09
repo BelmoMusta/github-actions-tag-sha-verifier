@@ -38,10 +38,12 @@
   "dependencies": {
     "@actions/core": "^3.0.1",
     "fs-extra": "^11.3.5",
+    "globals": "^17.6.0",
     "octokit": "^5.0.5"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.5",
+    "@eslint/js": "^10.0.1",
     "@github/local-action": "^7.0.1",
     "@jest/globals": "^30.4.1",
     "@octokit/fixtures": "^23.1.2",

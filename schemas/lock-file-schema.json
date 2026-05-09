@@ -19,27 +19,17 @@
                 "type": "string"
               },
               "type": {
-                "enum": [
-                  "branch",
-                  "tag"
-                ],
+                "enum": ["branch", "tag"],
                 "type": "string"
               }
             },
-            "required": [
-              "type",
-              "name",
-              "commit"
-            ],
+            "required": ["type", "name", "commit"],
             "type": "object"
           },
           "type": "array"
         }
       },
-      "required": [
-        "name",
-        "refs"
-      ],
+      "required": ["name", "refs"],
       "type": "object"
     },
     "LockedActionInformation": {
