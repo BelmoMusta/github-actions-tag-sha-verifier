@@ -18,7 +18,7 @@ export async function getCurrentCommitForActionReference(
     auth: referenceConfig.githubToken
   })
 
-  let ref = ''
+  let ref
   if (referenceConfig.type === 'tag') {
     ref = 'tags/'
   } else {

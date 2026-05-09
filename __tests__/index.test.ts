@@ -4,8 +4,7 @@ import { setOutputs } from '../__fixtures__/outputs.js'
 import { summary } from '../__fixtures__/summary.js'
 import { check } from '../__fixtures__/actions-check.js'
 import { getLockedActions } from '../__fixtures__/actions-lock.js'
-// @ts-ignore
-import { Inputs } from '../src/types'
+import { Inputs } from '../src/types.js'
 
 jest.unstable_mockModule('../src/inputs.js', () => ({
   getInputs

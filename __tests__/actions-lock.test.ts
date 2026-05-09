@@ -52,6 +52,8 @@ describe('action-lock.ts', () => {
     ]
   }
 ]`
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ;(fss.readFileSync as any).mockImplementation(() => lock)
   })
 

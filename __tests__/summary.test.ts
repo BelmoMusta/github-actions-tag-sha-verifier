@@ -11,7 +11,7 @@ describe('summary.ts', () => {
     //  jest.resetAllMocks()
   })
 
-  it('Should set the summary with writeToJobSummary = false ', async () => {
+  it('Should set the summary with writeToJobSummary = false', async () => {
     const summaryReport = await summary(
       [
         {
@@ -42,7 +42,7 @@ describe('summary.ts', () => {
     expect(core.summary.addHeading).toHaveBeenCalledWith('Summary')
   })
 
-  it('Should set the summary with writeToJobSummary = true ', async () => {
+  it('Should set the summary with writeToJobSummary = true', async () => {
     const summaryReport = await summary(
       [
         {
@@ -71,7 +71,7 @@ describe('summary.ts', () => {
     })
   })
 
-  it('Should set the summary with writeToJobSummary = false ', async () => {
+  it('Should set the summary with writeToJobSummary = false and match false', async () => {
     const summaryReport = await summary(
       [
         {

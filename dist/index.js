@@ -8916,7 +8916,7 @@ async function getCurrentCommitForActionReference(referenceConfig) {
         userAgent: 'github-actions',
         auth: referenceConfig.githubToken
     });
-    let ref = '';
+    let ref;
     if (referenceConfig.type === 'tag') {
         ref = 'tags/';
     }

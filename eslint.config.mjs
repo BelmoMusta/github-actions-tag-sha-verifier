@@ -16,7 +16,13 @@ const compat = new FlatCompat({
 
 export default [
   {
-    ignores: ['**/coverage', '**/dist', '**/linter', '**/node_modules']
+    ignores: [
+      '**/coverage',
+      '**/dist',
+      '**/linter',
+      '**/node_modules',
+      '**/__fixtures__'
+    ]
   },
   ...compat.extends(
     'eslint:recommended',
@@ -37,11 +43,7 @@ export default [
         ...globals.node,
         ...globals.jest,
         Atomics: 'readonly',
-        SharedArrayBuffer: 'readonly',
-        "afterAll": "readonly",
-        "beforeAll": "readonly",
-        "describe": "readonly",
-        "test": "readonly"
+        SharedArrayBuffer: 'readonly'
       },
 
       parser: tsParser,
@@ -50,6 +52,7 @@ export default [
 
       parserOptions: {
         projectService: {
+          maximumDefaultProjectFileMatchCount_THIS_WILL_SLOW_DOWN_LINTING: 200,
           allowDefaultProject: [
             '__fixtures__/*.ts',
             '__tests__/*.ts',
