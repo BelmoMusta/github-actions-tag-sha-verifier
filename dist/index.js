@@ -6,6 +6,8 @@ import require$$4 from 'util';
 import require$$5 from 'assert';
 import * as path from 'path';
 import path__default from 'path';
+import require$$1$3, { fileURLToPath } from 'node:url';
+import { dirname } from 'node:path';
 import * as os from 'os';
 import os__default, { EOL } from 'os';
 import * as crypto from 'crypto';
@@ -28,7 +30,6 @@ import require$$1$2 from 'node:zlib';
 import require$$5$2 from 'node:perf_hooks';
 import require$$8$1 from 'node:util/types';
 import require$$1$1 from 'node:worker_threads';
-import require$$1$3 from 'node:url';
 import require$$5$3 from 'node:async_hooks';
 import require$$1$4 from 'node:console';
 import require$$1$5 from 'node:dns';
@@ -2884,6 +2885,8 @@ function requireLib () {
 var libExports = /*@__PURE__*/ requireLib();
 var fs = /*@__PURE__*/getDefaultExportFromCjs(libExports);
 
+const __filename$1 = fileURLToPath(import.meta.url);
+const __dirname$1 = dirname(__filename$1);
 function getLockedActions(lockFileLocation) {
     let filePath;
     if (lockFileLocation) {
@@ -2891,11 +2894,14 @@ function getLockedActions(lockFileLocation) {
     }
     else {
         // fallback to the current actions-lock file
-        const githubActionPath = process.env['GITHUB_ACTION_PATH'] || '.';
-        filePath = path.resolve(githubActionPath, './actions-lock.json');
+        filePath = path.resolve(__dirname$1, './actions-lock.json');
+        console.log('filePath', filePath);
     }
-    const jsonString = fs.readFileSync(filePath, 'utf8');
-    const data = JSON.parse(jsonString);
+    let data = [];
+    if (fs.existsSync(filePath)) {
+        const jsonString = fs.readFileSync(filePath, 'utf8');
+        data = JSON.parse(jsonString);
+    }
     return data;
 }
 

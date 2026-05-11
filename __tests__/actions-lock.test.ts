@@ -55,6 +55,8 @@ describe('action-lock.ts', () => {
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ;(fss.readFileSync as any).mockImplementation(() => lock)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    ;(fss.existsSync as any).mockImplementation(() => true)
   })
 
   afterEach(() => {
@@ -69,10 +71,9 @@ describe('action-lock.ts', () => {
   })
 
   it('Should get the list of the locked actions from the default file', async () => {
-    process.env['GITHUB_ACTION_PATH'] = 'workspace'
     const lockedActions = getLockedActions('')
     expect(fss.readFileSync).toHaveBeenCalledWith(
-      expect.stringContaining('workspace/actions-lock.json'),
+      expect.stringContaining('/actions-lock.json'),
       'utf8'
     )
     expect(lockedActions[0].name).toEqual('actions/setup-java')
@@ -85,5 +86,13 @@ describe('action-lock.ts', () => {
       'utf8'
     )
     expect(lockedActions[0].name).toEqual('actions/setup-java')
+  })
+
+  it('Should return an empty list of actions if the file is not found', async () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    ;(fss.existsSync as any).mockImplementationOnce(() => false)
+    const lockedActions = getLockedActions('')
+    expect(fss.readFileSync).not.toHaveBeenCalled()
+    expect(lockedActions).toEqual([])
   })
 })
