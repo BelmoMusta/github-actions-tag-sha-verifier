@@ -7,6 +7,12 @@ export type LockedActionInformation = {
   }[]
 }
 
+export type ExistingUsedAction = {
+  file: string
+  name: string
+  ref: string
+}
+
 export type ActionRefReport = {
   name: string
   ref: string
